@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://megha:megha@cluster0.r3fmj.mongodb.net/job-portal?retryWrites=true&w=majority",
+    "jwtSecret": "mySecret"
+}
