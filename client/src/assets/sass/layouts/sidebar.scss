@@ -1,0 +1,129 @@
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+$sidebar-color:#0a151f;
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: $sidebar-color !important;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 16px;
+    background-color: $sidebar-color !important;
+    color: #ffffff;
+    font-size: 15px;
+    text-transform: uppercase;
+    position: relative;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+    line-height: 50px;
+}
+
+#sidebar .sidebar-profile {
+    padding: 10px;
+    background-color: $sidebar-color !important;
+    color: #ffffff;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+img.side-user-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .56), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+}
+
+#sidebar ul.components {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    background-color: transparent;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li {
+    margin: 5px 0;
+    padding: 0;
+    a {
+        color: rgba(255, 255, 255, 0.30);
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+    }
+}
+
+#sidebar ul li a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: transparent;
+}
+
+#sidebarCollapse {
+    background-color: $sidebar-color;
+    color: white;
+    border: none;
+}
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}

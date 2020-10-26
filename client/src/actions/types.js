@@ -1,0 +1,9 @@
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+
+export const GET_LOGIN_ERRORS = "GET_LOGIN_ERRORS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
+// USER MODULE TYPES
+export const EDIT_USER = "EDIT_USER";
+export const GET_USERS_LIST = "GET_USERS_LIST";
