@@ -17,7 +17,7 @@ router.post('/', auth, [
 // @desc returns all category
 // @access ADMIN
 
-router.get('/', auth, CategoryController.getAllCategories);
+router.post('/list', auth, CategoryController.getAllCategories);
 
 
 // @route POST api / category

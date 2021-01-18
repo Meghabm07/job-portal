@@ -1,23 +1,38 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 
-const Alert = ({ alerts }) => {
-  if (alerts !== null && alerts != undefined) {
-    return alerts.map((alert) => (
-      <div key="" className={`alert alert-${alert.alertType}`}>
-        {alert.msg}
-      </div>
-    ));
-  } else {
-    return <div></div>;
+import { toast } from "react-toastify";
+
+export function activeToaster(response) {
+  switch (response.status) {
+    case "success":
+      toast.success(response.message, {
+        autoClose: 3000,
+        containerId: "B",
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      break;
+    case "error":
+      toast.error(response.message, {
+        autoClose: 3000,
+        containerId: "B",
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      break;
+    case "warn":
+      toast.warn(response.message, {
+        autoClose: 3000,
+        containerId: "B",
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      break;
+    case "primary":
+      toast.primary(response.message, {
+        autoClose: 3000,
+        containerId: "B",
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      break;
+    default:
+      break;
   }
-};
-
-Alert.propTypes = {};
-
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps)(Alert);
+}

@@ -7,8 +7,8 @@ exports.store = async(req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array(),
+        return res.status(412).json({
+            error: errors.array(),
         });
     }
 
@@ -21,10 +21,8 @@ exports.store = async(req, res) => {
         });
 
         if (category) {
-            return res.status(400).json({
-                errors: [{
-                    msg: 'category already exists',
-                }, ],
+            return res.status(404).json({
+                error: 'category already exists',
             });
         }
 
@@ -34,7 +32,7 @@ exports.store = async(req, res) => {
 
         await category.save();
 
-        return res.status(400).json({
+        return res.status(200).json({
             message: `${name} Category Created Successfully`,
         });
 
@@ -45,11 +43,55 @@ exports.store = async(req, res) => {
 }
 
 exports.getAllCategories = async(req, res) => {
-    const categories = await Category.find();
 
-    return res.status(400).json({
-        categories: categories
-    })
+    var regexp = new RegExp(req.body.keywords);
+
+    var query = {};
+
+    if (req.body.keywords) {
+        await Category
+            .find({ name: { $regex: regexp, $options: 'i' } })
+            .skip(req.body.noOfItems * (req.body.pageNumber - 1))
+            .limit(req.body.noOfItems)
+            .exec((err, category) => {
+                if (err) {
+                    return res.json(err);
+                }
+                Category.countDocuments(query).exec((count_error, count) => {
+                    if (err) {
+                        return res.json(count_error);
+                    }
+                    return res.json({
+                        total: count,
+                        page: req.body.pageNumber,
+                        pageSize: category.length,
+                        categories: category
+                    });
+                });
+            });
+    } else {
+        await Category
+            .find()
+            .skip(req.body.noOfItems * (req.body.pageNumber - 1))
+            .limit(req.body.noOfItems)
+            .exec((err, category) => {
+                if (err) {
+                    return res.json(err);
+                }
+                Category.countDocuments(query).exec((count_error, count) => {
+                    if (err) {
+                        return res.json(count_error);
+                    }
+                    return res.json({
+                        total: count,
+                        page: req.body.pageNumber,
+                        pageSize: category.length,
+                        categories: category
+                    });
+                });
+            });
+    }
+
 }
 
 exports.edit = async(req, res) => {
@@ -60,7 +102,7 @@ exports.edit = async(req, res) => {
             if (category) {
                 return res.json(category);
             } else {
-                return res.status(400).json({
+                return res.status(404).json({
                     error: 'Category not found',
                 });
             }
@@ -72,8 +114,8 @@ exports.update = async(req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array(),
+        return res.status(412).json({
+            error: errors.array(),
         });
     }
 
@@ -86,10 +128,8 @@ exports.update = async(req, res) => {
         });
 
         if (category) {
-            return res.status(200).json({
-                errors: [{
-                    msg: 'category already exists',
-                }],
+            return res.status(404).json({
+                errors: 'category already exists',
             });
         }
 
@@ -97,13 +137,13 @@ exports.update = async(req, res) => {
             if (category) {
 
             } else {
-                return res.status(400).json({
+                return res.status(404).json({
                     error: 'Category not found',
                 });
             }
         });
 
-        return res.status(400).json({
+        return res.status(200).json({
             message: `${name} Updated Successfully`,
         });
 
@@ -117,10 +157,10 @@ exports.delete = async(req, res) => {
     await Category.findByIdAndRemove(req.params.id, function(err, category) {
         if (category) {
             return res.status(200).json({
-                error: `${category.name} Category Deleted Successfully`,
+                message: `${category.name} Category Deleted Successfully`,
             });
         } else {
-            return res.status(400).json({
+            return res.status(404).json({
                 error: 'Category not found',
             });
         }

@@ -42,6 +42,13 @@ export const Sidebar = ({ logOutUser, auth }) => {
         </li>
 
         <li className="">
+          <Link to="/admin/category">
+            <i className=" fa fa-database" aria-hidden="true"></i> &nbsp;
+            Category
+          </Link>
+        </li>
+
+        <li className="">
           <a href="#levelMenu" data-toggle="collapse">
             <i className="fa fa-list" aria-hidden="true"></i> &nbsp; Levels
             <i className="fa fa-angle-down pull-right mt-1"></i>

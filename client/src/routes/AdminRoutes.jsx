@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import { logOutUser, setCurrentUser } from "../actions/authAction";
 
 import $ from "jquery";
+import Category from "../components/admin/category/Category";
 import Dashboard from "../components/admin/dashboard/Dashboard";
 import Job from "../components/admin/job/Job";
 import Navbar from "../components/admin/layouts/Navbar";
@@ -56,6 +57,11 @@ const AdminRoutes = ({ match }) => {
           component={Dashboard}
         />
         <PrivateRoute exact path={`${match.path}/job`} component={Job} />
+        <PrivateRoute
+          exact
+          path={`${match.path}/category`}
+          component={Category}
+        />
       </div>
     </div>
   );
